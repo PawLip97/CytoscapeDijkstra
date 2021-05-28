@@ -1,52 +1,33 @@
 <template>
     <div class="hello">
-        <h1>{{ msg }}</h1>
-        <img src="../assets/logo.png" />
-        <p>
-            Template for Vue JS 3.0 and .NET 5 applications developed by <b>Alexandre Malavasi.</b><br />
-            In order to get more content on Vue JS and .NET platform, please follow on my social media profiles:
-        </p>
+        <h1>Dijkstra Algorithm using Cytoscape</h1>
+        <strong>
+            Create your own weighted graph and calculate the shortest path between nodes!
+        </strong>
+        <br><br>
+        <h3>Functionality includes:</h3><br />
         <ul>
-            <li>
-                <a href="https://medium.com/@alexandre.malavasi" target="_blank">Medium</a>
-            </li>
-            <li>
-                <a href="https://twitter.com/alemalavasi" target="_blank">Twitter</a>
-            </li>
-            <li>
-                <a href="https://www.youtube.com/channel/UC-KFGgYiot1eA8QFqIgLmqA" target="_blank">Youtube</a>
-            </li>
-            <li>
-                <a href="https://www.facebook.com/alexandre.malavasi.dev" target="_blank">Facebook</a>
-            </li>
+            <li>Highly advanced graph editor, thanks to <a href="https://js.cytoscape.org/">Cytoscape</a></li>
+            <br />
+            <li>Changing aesthetic freely</li>
+            <br />
+            <li>Using Dijkstra algorithm to find the shortest path</li>
+            <br />
+            <li>Graph editor supports mobile devices</li>
+            <br />
         </ul>
-        <h3>Vue Documentation</h3>
-        <p>
-            For a guide and recipes on how to configure / customize this project,<br>
-            check out the
-            <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-        </p>
-        <h3>Installed CLI Plugins</h3>
+
+        <h3>Technology used:</h3><br />
         <ul>
-            <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-            <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+            <li><a href="https://vuejs.org/"><icon :icon="['fab', 'vuejs']" /> Vue.js</a> for client-side code</li>
+            <br />
+            <li><a href="https://vuejs.org/"><icon :icon="['fab', 'vuejs']" /> .NET Core</a> for sever-side code</li>
+            <br />
+            <li><a href="https://webpack.js.org/">Cytoscape</a> for graph display and graph manipulation</li>
         </ul>
-        <h3>Essential Links</h3>
-        <ul>
-            <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-            <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-            <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-            <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-            <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-        </ul>
-        <h3>Ecosystem</h3>
-        <ul>
-            <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-            <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-            <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-            <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-            <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-        </ul>
+        <strong>To start, click the <a href="/cytoscapedijkstra/graph">Graph</a> menu!</strong>
+        <br /><br />
+        <strong>Made by Pawe³ Lipski</strong><br />
     </div>
 </template>
 

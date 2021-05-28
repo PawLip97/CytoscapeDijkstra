@@ -2,7 +2,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand">Vue JS Template for .NET 5</a>
+                <a class="navbar-brand">Dijkstra algorithm</a>
                 <button class="navbar-toggler"
                         type="button"
                         data-toggle="collapse"
@@ -16,17 +16,21 @@
                     <ul class="navbar-nav flex-grow">
                         <li class="nav-item">
                             <router-link :to="{ name: 'Home' }" class="nav-link text-dark">Home</router-link>
-
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name: 'Counter' }" class="nav-link text-dark">Counter</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link :to="{ name: 'FetchData' }" class="nav-link text-dark">Fetch Data</router-link>
+                            <router-link :to="{ name: 'Help' }" class="nav-link text-dark">Help</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{ name: 'Graph' }" class="nav-link text-dark">Graph</router-link>
                         </li>
+                        <div v-if="false">
+                            <li class="nav-item">
+                                <router-link :to="{ name: 'Counter' }" class="nav-link text-dark">Counter</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{ name: 'FetchData' }" class="nav-link text-dark">Fetch Data</router-link>
+                            </li>
+                        </div>
                     </ul>
                 </div>
             </div>
