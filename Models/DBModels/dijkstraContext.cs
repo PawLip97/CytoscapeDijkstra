@@ -93,9 +93,12 @@ namespace CytoscapeDijkstra2.Models.DBModels
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(256)
-                    .UseCollation("utf8_general_ci")
-                    .HasCharSet("utf8");
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PasswordSalt)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
             });
 
             OnModelCreatingPartial(modelBuilder);

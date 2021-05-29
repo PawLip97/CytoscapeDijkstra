@@ -242,8 +242,8 @@
     import FileSelect from './fileSelect.vue';
     import Popper from 'cytoscape-popper';
     import UndoRedo from 'cytoscape-undo-redo';
-    import scriptManager from './scriptManager.js'
-    import $ from 'jquery'
+    import scriptManager from './scriptManager.js';
+    import $ from 'jquery';
 
     cytoscape.use(cxtmenu);
     cytoscape.use(Popper);
@@ -1865,6 +1865,8 @@
         mounted: function () {
             this.view_init();
 
+            /* EXPORT AND IMPORT
+            $.noConflict();
             this.$root.$on('loadGraphJson', () => {
                 this.loadGraphJson();
                 //console.log("loadGraphJson")
@@ -1874,11 +1876,13 @@
                 this.loadGraphTxt();
                 //console.log("loadGraphTxt")
             })
+            */
 
+            /*
             // WARNING. Tutaj zawsze ustalam widocznoœæ wszystkich elementów. USUÑ POTEM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             this.cy.nodes().removeClass('hide-label');
             this.cy.edges().addClass('show-label');
-            //
+            */
         }
     }
 

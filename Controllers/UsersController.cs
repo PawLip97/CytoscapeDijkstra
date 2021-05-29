@@ -1,4 +1,5 @@
 ﻿using CytoscapeDijkstra2.Models.DBModels;
+using CytoscapeDijkstra2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,11 +13,11 @@ namespace CytoscapeDijkstra2.Controllers
     [Route("[controller]")]
     public class UsersController : Controller
     {
-        private readonly dijkstraContext _context;
+        private IUserService userService;
 
-        public UsersController(dijkstraContext context)
+        public UsersController(IUserService userService)
         {
-            _context = context;
+            this.userService = userService;
         }
 
         /*
@@ -28,16 +29,41 @@ namespace CytoscapeDijkstra2.Controllers
         */
 
         [HttpGet]
-        public List<User> GetUsers()
+        public IActionResult GetAllUsers()
         {
-            return _context.Users.ToList();
+            var users = userService.GetAll();
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public User GetUser(int id)
+        public IActionResult GetById(int id)
         {
-            return _context.Users.Where(p => p.Id == id).FirstOrDefault();
+            var user = userService.GetById(id);
+            return Ok(user);
         }
+
+        [HttpPost]
+        public IActionResult Register(string login, string password)
+        {
+            try
+            {
+                userService.Create(login, password);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /*
+        [HttpPost("{login},{password}")]
+        public IActionResult RegisterUser(string login, string password)
+        {
+
+            _context.Users.Add(new Models.DBModels.User())
+        }
+        */
 
         /*
         public IActionResult Index()

@@ -14,10 +14,11 @@ namespace CytoscapeDijkstra2.Models.DBModels
 
         public int Id { get; set; }
         public string Login { get; set; }
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
         public DateTime DateRegistration { get; set; }
         public DateTime? DateLastLogin { get; set; }
         public ulong IsDeleted { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
         public virtual ICollection<Graphsdatum> Graphsdata { get; set; }
     }
