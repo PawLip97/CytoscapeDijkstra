@@ -42,7 +42,7 @@ namespace CytoscapeDijkstra2.Services
             if (!VerifyPasswordHash(password, user.Password, user.PasswordSalt))
                 return null;
 
-            throw new NotImplementedException();
+            return user;
         }
 
         public User Create(string login, string password)

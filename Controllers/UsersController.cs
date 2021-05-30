@@ -2,9 +2,13 @@
 using CytoscapeDijkstra2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CytoscapeDijkstra2.Controllers
@@ -20,16 +24,42 @@ namespace CytoscapeDijkstra2.Controllers
             this.userService = userService;
         }
 
-        /*
-        [HttpGet]
-        public async Task<ActionResult<List<User>>> Get()
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(string login, string password)
         {
-          return await _context.Users.ToListAsync();
+            var user = userService.Authenticate(login, password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            //var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("key")), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            user.DateLastLogin = DateTime.Now;
+
+            return Ok(new
+            {
+                Id = user.Id,
+                Login = user.Login,
+                Token = tokenString
+            });
         }
-        */
 
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public IActionResult GetAll()
         {
             var users = userService.GetAll();
             return Ok(users);
@@ -55,6 +85,42 @@ namespace CytoscapeDijkstra2.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, string newLogin, string newPassword)
+        {
+            var user = new User();
+            user.Id = id;
+            user.Login = newLogin;
+
+            try
+            {
+                userService.Update(user, newPassword);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            userService.Delete(id);
+            return Ok();
+        }
+
+
+
+        /*
+        [HttpGet]
+        public async Task<ActionResult<List<User>>> Get()
+        {
+          return await _context.Users.ToListAsync();
+        }
+        */
 
         /*
         [HttpPost("{login},{password}")]
