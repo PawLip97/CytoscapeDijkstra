@@ -29,6 +29,8 @@
         <li> Add node, to add a node in a chosen position</li>
         <li> Remove selected, to remove all selected elements</li>
     </ul>
+
+    {{$store.state.title}}
 </template>
 
 
