@@ -34,8 +34,6 @@ namespace CytoscapeDijkstra2.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            //var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

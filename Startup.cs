@@ -1,4 +1,5 @@
 using CytoscapeDijkstra2.Models.DBModels;
+using CytoscapeDijkstra2.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,8 @@ namespace CytoscapeDijkstra2
             var connectionString = Configuration.GetConnectionString("MysqlDijkstraContext");
 
             services.AddDbContext<dijkstraContext>(options => options.UseMySql(connectionString: connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -33,6 +33,7 @@
 
 
 <script>
+    import axios from 'axios'
     export default {
         name: "Help",
         data() {
@@ -43,7 +44,19 @@
         methods: {
             incrementCounter() {
                 this.currentCount++;
+            },
+            getAllUsersTest() {
+                axios.get('/users')
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
             }
+        },
+        mounted() {
+            this.getAllUsersTest();
         }
     }
 </script>
