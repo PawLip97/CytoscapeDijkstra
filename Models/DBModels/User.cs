@@ -13,7 +13,7 @@ namespace CytoscapeDijkstra2.Models.DBModels
         }
 
         public int Id { get; set; }
-        public string Login { get; set; }
+        public string Username { get; set; }
         public byte[] Password { get; set; }
         public DateTime DateRegistration { get; set; }
         public DateTime? DateLastLogin { get; set; }

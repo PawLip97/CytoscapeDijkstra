@@ -74,7 +74,7 @@ namespace CytoscapeDijkstra2.Models.DBModels
                 entity.HasIndex(e => e.Id, "Id_UNIQUE")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Login, "Login_UNIQUE")
+                entity.HasIndex(e => e.Username, "Login_UNIQUE")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
@@ -85,12 +85,6 @@ namespace CytoscapeDijkstra2.Models.DBModels
 
                 entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
 
-                entity.Property(e => e.Login)
-                    .IsRequired()
-                    .HasMaxLength(256)
-                    .UseCollation("utf8_general_ci")
-                    .HasCharSet("utf8");
-
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(128)
@@ -99,6 +93,12 @@ namespace CytoscapeDijkstra2.Models.DBModels
                 entity.Property(e => e.PasswordSalt)
                     .HasMaxLength(128)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(256)
+                    .UseCollation("utf8_general_ci")
+                    .HasCharSet("utf8");
             });
 
             OnModelCreatingPartial(modelBuilder);

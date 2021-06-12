@@ -31,7 +31,7 @@ namespace CytoscapeDijkstra2
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp";
+                configuration.RootPath = "client-app2";
             });
 
             var connectionString = Configuration.GetConnectionString("MysqlDijkstraContext");
@@ -44,10 +44,13 @@ namespace CytoscapeDijkstra2
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            /*
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            */
+            app.UseDeveloperExceptionPage();
 
             app.UseRouting();
             app.UseSpaStaticFiles();
@@ -61,7 +64,7 @@ namespace CytoscapeDijkstra2
             app.UseSpa(spa =>
             {
                 if (env.IsDevelopment())
-                    spa.Options.SourcePath = "ClientApp/";
+                    spa.Options.SourcePath = "client-app2/";
                 else
                     spa.Options.SourcePath = "dist";
 

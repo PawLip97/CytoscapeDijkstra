@@ -11,7 +11,7 @@ namespace CytoscapeDijkstra2.Services
         User Authenticate(string login, string password);
         List<User> GetAll();
         User GetById(int id);
-        User Create(string login, string password);
+        User Create(string username, string password);
         void Update(User user, string password = null);
         void Delete(int id);
     }
@@ -25,14 +25,14 @@ namespace CytoscapeDijkstra2.Services
             this.context = context;
         }
 
-        public User Authenticate(string login, string password)
+        public User Authenticate(string username, string password)
         {
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 return null;
             }
 
-            var user = context.Users.FirstOrDefault(x => x.Login == login);
+            var user = context.Users.FirstOrDefault(x => x.Username == username);
 
             if (user == null)
             {
@@ -45,7 +45,7 @@ namespace CytoscapeDijkstra2.Services
             return user;
         }
 
-        public User Create(string login, string password)
+        public User Create(string username, string password)
         {
             /*
             // TODO: walidacja:
@@ -54,7 +54,7 @@ namespace CytoscapeDijkstra2.Services
             */
             var user = new User();
 
-            user.Login = login;
+            user.Username = username;
             user.DateRegistration = DateTime.Now;
             user.IsDeleted = 0;
 
@@ -87,8 +87,8 @@ namespace CytoscapeDijkstra2.Services
             if (user == null)
                 throw new ArgumentException("User does not exist.", "password");
 
-            if (!string.IsNullOrEmpty(userData.Login))
-                user.Login = userData.Login;
+            if (!string.IsNullOrEmpty(userData.Username))
+                user.Username = userData.Username;
 
             if (!string.IsNullOrWhiteSpace(password))
             {

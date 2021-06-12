@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -23,11 +24,11 @@ namespace CytoscapeDijkstra2.Controllers
         {
             this.userService = userService;
         }
-
+        
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(string login, string password)
+        public IActionResult Authenticate([FromBody] LoginRequest loginRequest)
         {
-            var user = userService.Authenticate(login, password);
+            var user = userService.Authenticate(loginRequest.username, loginRequest.password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -51,7 +52,7 @@ namespace CytoscapeDijkstra2.Controllers
             return Ok(new
             {
                 Id = user.Id,
-                Login = user.Login,
+                Username = user.Username,
                 Token = tokenString
             });
         }
@@ -59,6 +60,14 @@ namespace CytoscapeDijkstra2.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+            Microsoft.Extensions.Primitives.StringValues headerValues;
+            var accessToken = Request.Headers.TryGetValue("x-access-token", out headerValues);
+
+            if (!accessToken)
+            {
+                // user not logged in
+            }
+
             var users = userService.GetAll();
             return Ok(users);
         }
@@ -70,12 +79,12 @@ namespace CytoscapeDijkstra2.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        public IActionResult Register(string login, string password)
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] LoginRequest loginRequest)
         {
             try
             {
-                userService.Create(login, password);
+                userService.Create(loginRequest.username, loginRequest.password);
                 return Ok();
             }
             catch (Exception ex)
@@ -89,7 +98,7 @@ namespace CytoscapeDijkstra2.Controllers
         {
             var user = new User();
             user.Id = id;
-            user.Login = newLogin;
+            user.Username = newLogin;
 
             try
             {
@@ -135,5 +144,11 @@ namespace CytoscapeDijkstra2.Controllers
             return View();
         }
         */
+    }
+
+    public class LoginRequest
+    {
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }

@@ -30,6 +30,14 @@
                         error.toString();
                 }
             );
+
+            UserService.getAllUsersTest()
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
         },
     };
 </script>

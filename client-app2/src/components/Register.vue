@@ -10,11 +10,6 @@
                         <ErrorMessage name="username" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <Field name="email" type="email" class="form-control" />
-                        <ErrorMessage name="email" class="error-feedback" />
-                    </div>
-                    <div class="form-group">
                         <label for="password">Password</label>
                         <Field name="password" type="password" class="form-control" />
                         <ErrorMessage name="password" class="error-feedback" />
@@ -57,11 +52,6 @@
                     .required("Username is required!")
                     .min(3, "Must be at least 3 characters!")
                     .max(20, "Must be maximum 20 characters!"),
-                email: yup
-                    .string()
-                    .required("Email is required!")
-                    .email("Email is invalid!")
-                    .max(50, "Must be maximum 50 characters!"),
                 password: yup
                     .string()
                     .required("Password is required!")
