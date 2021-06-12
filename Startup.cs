@@ -39,6 +39,8 @@ namespace CytoscapeDijkstra2
             services.AddDbContext<dijkstraContext>(options => options.UseMySql(connectionString: connectionString, ServerVersion.AutoDetect(connectionString)));
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IGraphService, GraphService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -15,21 +15,58 @@
         </p>
         <p>
             <strong>Your graphs:</strong>
+            <ul>
+                <li v-for="item in graphsList" :key="item.name" @click="graphClicked(item.data)">
+                    {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }}
+                </li>
+            </ul>
         </p>
     </div>
 </template>
 
 <script>
+    import GraphService from "../services/graph.service";
+
     export default {
         name: 'Profile',
+        data() {
+            return {
+                graphsList: []
+            }
+        },
         computed: {
             currentUser() {
                 return this.$store.state.auth.user;
             }
         },
+        methods: {
+            graphClicked(data){
+                this.$router.push({ name: 'graph', params: { graphData: data } });
+            }
+        },
         mounted() {
+
             if (!this.currentUser) {
                 this.$router.push('/login');
+            }
+            else
+            {
+                GraphService.getUsersGraphs()
+                .then(
+                (response) => {
+                    console.log(response.data);
+                    this.graphsList = response.data;
+                    return response.data;
+                },
+                (error) => {
+                    this.content =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                        return null;
+                })
             }
         }
     };

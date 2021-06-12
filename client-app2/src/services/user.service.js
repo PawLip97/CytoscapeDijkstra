@@ -24,10 +24,6 @@ class UserService {
 
         return axios.get('/users', { headers: authHeader() });
     }
-
-    tryLogin() {
-
-    }
 }
 
 export default new UserService();
