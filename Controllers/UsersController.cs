@@ -35,6 +35,8 @@ namespace CytoscapeDijkstra2.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
+            var key = Encoding.ASCII.GetBytes("MY SUPER SECRET STRING");
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -42,9 +44,11 @@ namespace CytoscapeDijkstra2.Controllers
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("key")), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
             var tokenString = tokenHandler.WriteToken(token);
 
             user.DateLastLogin = DateTime.Now;
@@ -53,7 +57,7 @@ namespace CytoscapeDijkstra2.Controllers
             {
                 Id = user.Id,
                 Username = user.Username,
-                Token = tokenString
+                AccessToken = tokenString
             });
         }
 
