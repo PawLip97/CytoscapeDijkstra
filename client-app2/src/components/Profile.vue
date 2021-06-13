@@ -14,10 +14,12 @@
             {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
         </p>
         <p>
-            <strong>Your graphs:</strong>
+            <strong>Your graphs:</strong><br/><br/>
             <ul>
                 <li v-for="item in graphsList" :key="item.name" @click="graphClicked(item.data)">
-                    {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }}
+                    <p class="graph-record">
+                        {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }}
+                    </p>
                 </li>
             </ul>
         </p>
@@ -71,3 +73,14 @@
         }
     };
 </script>
+
+<style scoped>
+.graph-record {
+    cursor: pointer;
+}
+
+.graph-record:hover {
+    color: blue;
+    font-weight: bold;
+}
+</style>
