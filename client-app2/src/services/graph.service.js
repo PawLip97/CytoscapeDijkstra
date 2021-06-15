@@ -4,6 +4,10 @@
 
 class GraphService {
 
+    getAllGraphs() {
+        return axios.get('graphs/allGraphs');
+    }
+
     getUsersGraphs() {
         let user = JSON.parse(localStorage.getItem('user'));
         return axios.get('graphs/usersGraphs/' + user.id);

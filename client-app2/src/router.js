@@ -5,6 +5,7 @@ import Register from "./components/Register.vue";
 
 const Profile = () => import("./components/Profile.vue")
 const Graph = () => import("./components/Graph.vue")
+const Community = () => import("./components/Community.vue")
 
 const routes = [
     {
@@ -33,6 +34,11 @@ const routes = [
         path: "/graph",
         name: "graph",
         component: Graph,
+    },
+    {
+        path: "/community",
+        name: "community",
+        component: Community,
     }
 ];
 
@@ -42,11 +48,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/home', '/graph'];
+    const publicPages = ['/login', '/register', '/home', '/graph', '/community'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
 
-    // trying to access a restricted page + not logged in
     // redirect to login page
     if (authRequired && !loggedIn) {
         next('/login');

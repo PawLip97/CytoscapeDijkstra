@@ -9,6 +9,11 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
+                    <router-link to="/community" class="nav-link">
+                        <font-awesome-icon icon="list" /> Community
+                    </router-link>
+                </li>
+                <li class="nav-item">
                     <router-link to="/graph" class="nav-link">
                         <font-awesome-icon icon="project-diagram" /> Graph editor
                     </router-link>
