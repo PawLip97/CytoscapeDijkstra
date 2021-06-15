@@ -209,7 +209,7 @@
             </div>
         </modal>
 
-        <modal name="export" height="auto" width="70%" scrolalble="true">
+        <vue-final-modal v-model="_showModal" name="export" height="auto" width="70%" scrolalble="true">
             <div style="margin-left:30px">
                 <h1 class="mt-4">
                     Choose export:
@@ -232,7 +232,7 @@
                 </div>
                 <br />
             </div>
-        </modal>
+        </vue-final-modal>
     </div>
 </template>
 
@@ -282,7 +282,9 @@
                 edgesDefaultColor: 'gray',
                 selectionDefaultColor: 2,
                 nodesAmount: 0,
-                edgesAmount: 0
+                edgesAmount: 0,
+
+                _showModal: false
             }
         },
         methods: {
@@ -376,7 +378,9 @@
                 }
             },
             showModalExport: function () {
-                this.$modal.show('export');
+                console.log(this.$vfm);
+                //this.$modal.show('export');
+                this.$vfm.show("export");
             },
             modalIndexOpened: function () {
                 // zaznaczenie indexElementType radio button
@@ -1874,8 +1878,7 @@
                 this.cy.fit();
             }
 
-
-            /* EXPORT AND IMPORT
+            /*
             $.noConflict();
             this.$root.$on('loadGraphJson', () => {
                 this.loadGraphJson();
@@ -1886,6 +1889,7 @@
                 this.loadGraphTxt();
                 //console.log("loadGraphTxt")
             })
+
             */
 
             /*
