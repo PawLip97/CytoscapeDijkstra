@@ -1686,7 +1686,20 @@
             },
             saveGraph: function (graphName) {
                 let data = JSON.stringify(this.cy.json());
-                GraphService.saveGraph(this.currentUser.id, graphName, data, this.nodesAmount, this.edgesAmount);
+                GraphService.saveGraph(this.currentUser.id, graphName, data, this.nodesAmount, this.edgesAmount)
+                    .then(
+                        () => {
+                            this.$vfm.hide('saveName');
+                        },
+                        (error) => {
+                            this.content =
+                                (error.response &&
+                                    error.response.data &&
+                                    error.response.data.message) ||
+                                error.message ||
+                                error.toString();
+                            return null;
+                        })
             },
             exportGraph: function () {
                 var data = JSON.stringify(this.cy.json());
