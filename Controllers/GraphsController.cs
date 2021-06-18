@@ -30,5 +30,21 @@ namespace CytoscapeDijkstra2.Controllers
             var users = graphService.GetUsersGraphs(id);
             return Ok(users);
         }
+
+        [HttpPost("saveGraph")]
+        public IActionResult SaveGraph([FromBody] GraphSaveRequest graphSaveRequest)
+        {
+            var graph = graphService.Save(graphSaveRequest.userId, graphSaveRequest.graphName, graphSaveRequest.data, graphSaveRequest.nodesCount, graphSaveRequest.edgesCount);
+            return Ok(graph);
+        }
+    }
+
+    public class GraphSaveRequest
+    {
+        public int userId { get; set; }
+        public string graphName { get; set; }
+        public string data { get; set; }
+        public int nodesCount { get; set; }
+        public int edgesCount { get; set; }
     }
 }

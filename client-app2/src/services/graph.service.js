@@ -12,6 +12,17 @@ class GraphService {
         let user = JSON.parse(localStorage.getItem('user'));
         return axios.get('graphs/usersGraphs/' + user.id);
     }
+
+    saveGraph(userId, graphName, data, nodesCount, edgesCount) {
+        return axios.post('graphs/saveGraph',
+            {
+                userId: userId,
+                graphName: graphName,
+                data: data,
+                nodesCount: nodesCount,
+                edgesCount: edgesCount
+            });
+    }
 }
 
 export default new GraphService();

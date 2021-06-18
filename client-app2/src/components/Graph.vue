@@ -4,7 +4,7 @@
         <div style="margin-top:6px;">
             <fileSelect id="fileSelector" v-model="file" style="cursor: pointer;margin-right:5px;"></fileSelect>
             <button type="button" class="btn btn-primary" @click="showModal()" style="float:right;margin-right:10px;"><icon icon="cog" /> Settings</button>
-            <button type="button" class="btn btn-primary" @click="showModalExport()"><icon icon="download" /> Export</button>
+            <button type="button" class="btn btn-primary" @click="showModalExport()"><icon icon="download" /> Save</button>
         </div>
         <div>
             <div id="undo-redo-icons" style="position:absolute; margin-top:25px; margin-left:15px; z-index:1;">
@@ -152,7 +152,7 @@
                             </tr>
                         </table>
                         <div>&nbsp;Nodes</div>
-                        <br/>
+                        <br />
                     </li>
                     <li style="padding-bottom:8px">
                         <table id="settingsEdgeColor" style="background:white; float:left;">
@@ -214,8 +214,11 @@
         <vue-final-modal v-model="_showModalExport" name="export" height="auto" width="70%" scrolalble="true" classes="modal-container" content-class="modal-content">
             <div style="margin-left:30px">
                 <h1 class="mt-4">
-                    Choose export:
+                    Save:
                 </h1>
+                <div v-if="currentUser">
+                    <button type="button" class="btn btn-primary" @click="showNameModal()" style="margin-bottom:5px">Save to database</button>
+                </div>
                 <div>
                     <button type="button" class="btn btn-primary" @click="exportGraph()" style="margin-bottom:5px">As JSON</button>
                 </div>
@@ -235,6 +238,16 @@
                 <br />
             </div>
         </vue-final-modal>
+
+        <vue-final-modal v-model="_showModalSaveName" name="saveName" height="auto" width="70%" scrolalble="true" classes="modal-container" content-class="modal-content">
+            <h1 class="mt-4">
+                Graph name:
+            </h1>
+            <div>
+                <input v-model="graphName" placeholder="Name"> &nbsp;
+                <button type="button" class="btn btn-primary" @click="saveGraph(graphName)" style="margin-bottom:5px">Save to database</button>
+            </div>
+        </vue-final-modal>
     </div>
 </template>
 
@@ -246,6 +259,7 @@
     import UndoRedo from 'cytoscape-undo-redo';
     import scriptManager from './scriptManager.js';
     import $ from 'jquery';
+    import GraphService from "../services/graph.service";
 
     cytoscape.use(cxtmenu);
     cytoscape.use(Popper);
@@ -286,8 +300,10 @@
                 nodesAmount: 0,
                 edgesAmount: 0,
 
+                graphName: "",
                 _showModalExport: false,
-                _showModalSettings: false
+                _showModalSettings: false,
+                _showModalSaveName: false
             }
         },
         methods: {
@@ -384,6 +400,10 @@
                     default:
                         console.log("No calculation selected");
                 }
+            },
+            showNameModal: function () {
+                this.$vfm.hide("export");
+                this.$vfm.show("saveName");
             },
             showModalExport: function () {
                 console.log(this.$vfm);
@@ -1664,6 +1684,10 @@
                 var t1 = performance.now();
                 console.log("Minimum dominating sets took " + (t1 - t0) + " miliseconds")
             },
+            saveGraph: function (graphName) {
+                let data = JSON.stringify(this.cy.json());
+                GraphService.saveGraph(this.currentUser.id, graphName, data, this.nodesAmount, this.edgesAmount);
+            },
             exportGraph: function () {
                 var data = JSON.stringify(this.cy.json());
                 var file = new Blob([data], { type: "json" });
@@ -1873,7 +1897,9 @@
             }
         },
         computed: {
-
+            currentUser() {
+                return this.$store.state.auth.user;
+            }
         },
         mounted: function () {
             this.view_init();
