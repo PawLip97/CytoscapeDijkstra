@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <modal id="indexElements" name="indexElements" height="auto" width="70%" @opened="modalIndexOpened">
+        <vue-final-modal id="indexElements" name="indexElements" height="auto" width="70%" @opened="modalIndexOpened" classes="modal-container" content-class="modal-content">
             <div style="margin-left:30px">
                 <h1 class="mt-4">
                     Refresh elements names
@@ -80,9 +80,9 @@
                 </div>
                 <br />
             </div>
-        </modal>
+        </vue-final-modal>
 
-        <modal id="settings" name="settings" height="auto" width="70%" @opened="modalOpened">
+        <vue-final-modal v-model="_showModalSettings" id="settings" name="settings" height="auto" width="70%" @opened="modalOpened" classes="modal-container" content-class="modal-content">
             <div style="margin-left:30px">
                 <h1 class="mt-4">
                     Graph settings
@@ -152,6 +152,7 @@
                             </tr>
                         </table>
                         <div>&nbsp;Nodes</div>
+                        <br/>
                     </li>
                     <li style="padding-bottom:8px">
                         <table id="settingsEdgeColor" style="background:white; float:left;">
@@ -183,6 +184,7 @@
                             </tr>
                         </table>
                         <div>&nbsp;Edges</div>
+                        <br />
                     </li>
                     <li style="padding-bottom:5px">
                         <table id="settingsSelectionColor" style="background:white; float:left;">
@@ -207,9 +209,9 @@
                 </div>
                 <br />
             </div>
-        </modal>
+        </vue-final-modal>
 
-        <vue-final-modal v-model="_showModal" name="export" height="auto" width="70%" scrolalble="true">
+        <vue-final-modal v-model="_showModalExport" name="export" height="auto" width="70%" scrolalble="true" classes="modal-container" content-class="modal-content">
             <div style="margin-left:30px">
                 <h1 class="mt-4">
                     Choose export:
@@ -284,12 +286,14 @@
                 nodesAmount: 0,
                 edgesAmount: 0,
 
-                _showModal: false
+                _showModalExport: false,
+                _showModalSettings: false
             }
         },
         methods: {
             Test: function () {
                 this.$modal.show('settings');
+                this.$vfm.show('settings');
             },
             calculateElementsAmount: function () {
                 this.nodesAmount = this.cy.nodes().length;
@@ -338,9 +342,11 @@
                 this.cy.elements().unselect();
 
                 this.$modal.hide('indexElements');
+                this.$vfm.hide('indexElements');
             },
             indexElements: function () {
                 this.$modal.show('settings');
+                this.$vfm.show('settings');
                 //console.log("indexElements")
             },
             center: function () {
@@ -350,9 +356,11 @@
             },
             showModalIndexElements: function () {
                 this.$modal.show('indexElements');
+                this.$vfm.show('indexElements');
             },
             showModal: function () {
-                this.$modal.show('settings');
+                //this.$modal.show('settings');
+                this.$vfm.show("settings");
             },
             calculate: function () {
                 var calculateSelected = $('input[name="calculateRadios"]:checked').val();
@@ -559,7 +567,8 @@
                           ele.toggleClass('show-label');
                         }
                 */
-                this.$modal.hide('settings');
+                //this.$modal.hide('settings');
+                this.$vfm.hide('settings');
 
             },
             pathElementsStringClicked: function (a) {
@@ -2066,11 +2075,28 @@
         cursor: pointer;
     }
 
-        .one-color-settings-selected:after {
-            content: '\2713';
-            position: relative;
-            bottom: 4px;
-            left: 1px;
-        }
+    .one-color-settings-selected:after {
+        content: '\2713';
+        position: relative;
+        bottom: 4px;
+        left: 1px;
+    }
+
+    .modal-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1rem;
+        padding: 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.25rem;
+        background: #fff;
+        width: 80%;
+    }
 </style>
 
