@@ -23,6 +23,10 @@ class GraphService {
                 edgesCount: edgesCount
             });
     }
+
+    deleteGraph(graphId) {
+        return axios.delete('graphs/' + graphId)
+    }
 }
 
 export default new GraphService();

@@ -16,10 +16,11 @@
         <p>
             <strong>Your graphs:</strong><br/><br/>
             <ul>
-                <li v-for="item in graphsList" :key="item.name" @click="graphClicked(item.data)">
-                    <p class="graph-record">
+                <li v-for="item in graphsList" :key="item.name">
+                    <p class="graph-record" @click="graphClicked(item.data)">
                         {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }}
                     </p>
+                    <button type="button" class="btn btn-primary" @click="deleteGraph(item.id)">Delete graph</button>
                 </li>
             </ul>
         </p>
@@ -27,7 +28,8 @@
 </template>
 
 <script>
-    import GraphService from "../services/graph.service";
+    import graphService from "../services/graph.service";
+import GraphService from "../services/graph.service";
 
     export default {
         name: 'Profile',
@@ -44,6 +46,42 @@
         methods: {
             graphClicked(data){
                 this.$router.push({ name: 'graph', params: { graphData: data } });
+            },
+            getUsersGraphs() {
+                GraphService.getUsersGraphs()
+                    .then(
+                        (response) => {
+                            console.log(response.data);
+                            this.graphsList = response.data;
+                            return response.data;
+                        },
+                        (error) => {
+                            this.content =
+                                (error.response &&
+                                    error.response.data &&
+                                    error.response.data.message) ||
+                                error.message ||
+                                error.toString();
+                            return null;
+                        })
+            },
+            deleteGraph(graphId) {
+                console.log(graphId);
+                graphService.deleteGraph(graphId)
+                    .then(
+                        (response) => {
+                            console.log(response);
+                            this.getUsersGraphs();
+                        },
+                        (error) => {
+                            this.content =
+                                (error.response &&
+                                    error.response.data &&
+                                    error.response.data.message) ||
+                                error.message ||
+                                error.toString();
+                            return null;
+                        })
             }
         },
         mounted() {
@@ -53,22 +91,7 @@
             }
             else
             {
-                GraphService.getUsersGraphs()
-                .then(
-                (response) => {
-                    console.log(response.data);
-                    this.graphsList = response.data;
-                    return response.data;
-                },
-                (error) => {
-                    this.content =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                        return null;
-                })
+                this.getUsersGraphs();
             }
         }
     };

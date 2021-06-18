@@ -20,15 +20,15 @@ namespace CytoscapeDijkstra2.Controllers
         [HttpGet("allGraphs")]
         public IActionResult GetAll()
         {
-            var users = graphService.GetAllGraphs();
-            return Ok(users);
+            var graphs = graphService.GetAllGraphs();
+            return Ok(graphs);
         }
 
         [HttpGet("usersGraphs/{id}")]
         public IActionResult GetUsersGraphs(int id)
         {
-            var users = graphService.GetUsersGraphs(id);
-            return Ok(users);
+            var graphs = graphService.GetUsersGraphs(id);
+            return Ok(graphs);
         }
 
         [HttpPost("saveGraph")]
@@ -36,6 +36,13 @@ namespace CytoscapeDijkstra2.Controllers
         {
             var graph = graphService.Save(graphSaveRequest.userId, graphSaveRequest.graphName, graphSaveRequest.data, graphSaveRequest.nodesCount, graphSaveRequest.edgesCount);
             return Ok(graph);
+        }
+
+        [HttpDelete("{graphId}")]
+        public IActionResult DeleteGraph(int graphId)
+        {
+            graphService.Delete(graphId);
+            return Ok();
         }
     }
 
