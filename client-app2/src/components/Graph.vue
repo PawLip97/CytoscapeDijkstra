@@ -1698,6 +1698,7 @@
                         () => {
                             this.$vfm.hide('saveName');
                             this.$vfm.show('saveSuccessful');
+                            this.graphName = '';
                         },
                         (error) => {
                             this.content =
