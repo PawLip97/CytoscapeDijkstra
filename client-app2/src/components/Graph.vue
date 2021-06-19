@@ -248,6 +248,12 @@
                 <button type="button" class="btn btn-primary" @click="saveGraph(graphName)" style="margin-bottom:5px">Save to database</button>
             </div>
         </vue-final-modal>
+
+        <vue-final-modal v-model="_showModalSaveSuccessful" name="saveSuccessful" height="auto" width="70%" scrolalble="true" classes="modal-container" content-class="modal-content">
+            <h1 class="mt-4" style="color: green">
+                Save succesful!
+            </h1>
+        </vue-final-modal>
     </div>
 </template>
 
@@ -303,7 +309,8 @@
                 graphName: "",
                 _showModalExport: false,
                 _showModalSettings: false,
-                _showModalSaveName: false
+                _showModalSaveName: false,
+                _showModalSaveSuccessful: false
             }
         },
         methods: {
@@ -1690,6 +1697,7 @@
                     .then(
                         () => {
                             this.$vfm.hide('saveName');
+                            this.$vfm.show('saveSuccessful');
                         },
                         (error) => {
                             this.content =
