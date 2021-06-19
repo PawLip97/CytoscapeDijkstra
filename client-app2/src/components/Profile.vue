@@ -14,13 +14,15 @@
             {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
         </p>
         <p>
-            <strong>Your graphs:</strong><br/><br/>
+            <strong>Your graphs:</strong><br /><br />
             <ul>
                 <li v-for="item in graphsList" :key="item.name">
-                    <p class="graph-record" @click="graphClicked(item.data)">
-                        {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }}
-                    </p>
-                    <button type="button" class="btn btn-primary" @click="deleteGraph(item.id)">Delete graph</button>
+                    <div class="graph-record">
+                        <span @click="graphClicked(item.data)">
+                            {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }} &nbsp;
+                        </span>
+                        <font-awesome-icon icon="trash-alt" class="clickable" @click="deleteGraph(item.id)" />
+                    </div>
                 </li>
             </ul>
         </p>
@@ -105,5 +107,13 @@ import GraphService from "../services/graph.service";
 .graph-record:hover {
     color: blue;
     font-weight: bold;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+ul {
+    list-style:none;
 }
 </style>
