@@ -16,13 +16,12 @@
         <p>
             <strong>Your graphs:</strong><br /><br />
             <ul>
-                <li v-for="item in graphsList" :key="item.name">
-                    <div class="graph-record">
-                        <span @click="graphClicked(item.data)">
-                            {{ item.name }}; Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }} &nbsp;
-                        </span>
-                        <font-awesome-icon icon="trash-alt" class="clickable" @click="deleteGraph(item.id)" />
+                <li v-for="item in graphsList" :key="item.name" style="margin-bottom:30px;">
+                    <div class="graph-record-name" @click="graphClicked(item.data)">
+                        <h4>{{ item.name }}</h4>
                     </div>
+                    Nodes: {{ item.nodesCount }}; Edges: {{ item.edgesCount }} &nbsp;
+                    <font-awesome-icon icon="trash-alt" class="clickable" @click="deleteGraph(item.id)" />
                 </li>
             </ul>
         </p>
@@ -100,20 +99,21 @@ import GraphService from "../services/graph.service";
 </script>
 
 <style scoped>
-.graph-record {
-    cursor: pointer;
-}
 
-.graph-record:hover {
-    color: blue;
-    font-weight: bold;
-}
+    .graph-record-name {
+        cursor: pointer;
+    }
 
-.clickable {
-    cursor: pointer;
-}
+    .graph-record-name:hover {
+        color: blue;
+        font-weight: bold;
+    }
 
-ul {
-    list-style:none;
-}
+    .clickable {
+        cursor: pointer;
+    }
+
+    ul {
+        list-style:none;
+    }
 </style>
