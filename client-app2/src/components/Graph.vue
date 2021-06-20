@@ -700,7 +700,7 @@
                 //elements.push(this.cy.filter('node[id.includes("' + splitted[i] + '")'));
             },
             addNode: function (position) {
-                //console.log(this.i)
+
                 var newNode = this.cy.add({
                     group: "nodes",
                     data: { id: this.i, weight: 75, name: this.i++ },
@@ -722,10 +722,10 @@
                         newNode.addClass('hide-label');
                         break;
                     default:
-                    //console.log("displayElements selection error");
                 }
 
-                this.changeColor([newNode, this.nodesDefaultColor, newNode.classes()])    // zmiana koloru zale�nie od wybranego defaulta
+                // zmiana koloru zależnie od wybranego defaultowego koloru
+                this.changeColor([newNode, this.nodesDefaultColor, newNode.classes()])    
 
                 return [this.i - 1, position];
             },
@@ -1407,8 +1407,6 @@
                         {
                             content: 'Add node',
                             select: function (ele, event) {
-                                //console.log(event.position);
-                                //self.addNode(event.position);
                                 ur.do("addNode", event.position);
                             }
                         },

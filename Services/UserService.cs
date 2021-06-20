@@ -47,11 +47,6 @@ namespace CytoscapeDijkstra2.Services
 
         public User Create(string username, string password)
         {
-            /*
-            // TODO: walidacja:
-            - null or puste znaki
-            - dany login zajęty
-            */
             var user = new User();
 
             user.Username = username;
